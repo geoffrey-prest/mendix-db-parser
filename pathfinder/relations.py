@@ -51,7 +51,7 @@ def generate_relation_map_from_sql(directory: str) -> dict:
                         relation_map[table2].append((table_name, table1))
         
     if logging.getLogger().isEnabledFor(logging.DEBUG):
-        with open('relation_map.json', 'w') as file:
+        with open('debug/relation_map.json', 'w') as file:
             json.dump(relation_map, file, indent=4)
     
     return relation_map
