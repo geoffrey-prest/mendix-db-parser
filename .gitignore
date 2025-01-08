@@ -1,3 +1,4 @@
 pathfinder/__pycache__
 tests/__pycache__
 relation_map.json
+graph.graphml
