@@ -1,3 +1,4 @@
+import json
 import logging
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -27,10 +28,44 @@ def generate_from_relation_map(relation_map: Dict[str, List[Tuple[str, str]]]) -
     if logging.getLogger().isEnabledFor(logging.DEBUG):
         logging.debug(f"Graph has {graph.number_of_nodes()} nodes and {graph.number_of_edges()} edges.")
         logging.debug(f"Graph has {nx.number_strongly_connected_components(graph)} strongly connected components.")
-        nx.write_graphml(graph, "graph.graphml")
+        nx.write_graphml(graph, "debug/graph.graphml")
         logging.debug("Graph has been stored in 'graph.graphml'.")
 
     return graph
+
+def find_path(relation_graph, source_table, target_table):
+    """
+    Finds all paths between a source table and a target table in a relation graph and returns the shortest one.
+
+    Args:
+        relation_graph (nx.DiGraph): A directed graph where nodes represent tables and edges represent relationships between them.
+        source_table (str): The table to start the path from.
+        target_table (str): The table to end the path at.
+
+    Returns:
+        List[str]: a list of table names representing the shortest path from the source table to the target table.
+    """
+    logging.info(f"Finding the shortest path from {source_table} to {target_table}.")
+
+    try:
+        all_paths = list(nx.all_simple_paths(relation_graph, source_table, target_table))
+        logging.info(f"Found {len(all_paths)} paths.")
+
+        shortest_path = nx.shortest_path(relation_graph, source=source_table, target=target_table)
+        logging.info(f"Shortest path from {source_table} to {target_table}: {shortest_path}")
+    except nx.NetworkXNoPath:
+            logging.warning(f"No path found from {source_table} to {target_table}.")
+            return []
+
+    if logging.getLogger().isEnabledFor(logging.DEBUG):
+        logging.debug(f"all_paths: {all_paths}")
+        with open('debug/all_paths.json', 'w') as file:
+            json.dump(all_paths, file, indent=4)
+        logging.debug(f"shortest_path: {shortest_path}")
+        with open('debug/shortest_path.json', 'w') as file:
+            json.dump(shortest_path, file, indent=4)
+
+    return shortest_path
 
 def draw_graph(graph: nx.DiGraph) -> None:
     """
