@@ -1,0 +1,92 @@
+{
+    "customermanagement$customer": [
+        [
+            "customermanagement$customer_review",
+            "productmanagement$review"
+        ],
+        [
+            "ordermanagement$order_customer",
+            "ordermanagement$order"
+        ]
+    ],
+    "productmanagement$review": [
+        [
+            "customermanagement$customer_review",
+            "customermanagement$customer"
+        ],
+        [
+            "productmanagement$book_review",
+            "productmanagement$book"
+        ]
+    ],
+    "fulfillmentmanagement$payment": [
+        [
+            "fulfillmentmanagement$payment_order",
+            "ordermanagement$order"
+        ]
+    ],
+    "ordermanagement$order": [
+        [
+            "fulfillmentmanagement$payment_order",
+            "fulfillmentmanagement$payment"
+        ],
+        [
+            "fulfillmentmanagement$shippingdetail_order",
+            "fulfillmentmanagement$shippingdetail"
+        ],
+        [
+            "ordermanagement$orderitem_book",
+            "productmanagement$book"
+        ],
+        [
+            "ordermanagement$order_customer",
+            "customermanagement$customer"
+        ]
+    ],
+    "fulfillmentmanagement$shippingdetail": [
+        [
+            "fulfillmentmanagement$shippingdetail_order",
+            "ordermanagement$order"
+        ]
+    ],
+    "productmanagement$book": [
+        [
+            "ordermanagement$orderitem_book",
+            "ordermanagement$order"
+        ],
+        [
+            "productmanagement$author_book",
+            "productmanagement$author"
+        ],
+        [
+            "productmanagement$book_category",
+            "productmanagement$category"
+        ],
+        [
+            "productmanagement$book_publisher",
+            "productmanagement$publisher"
+        ],
+        [
+            "productmanagement$book_review",
+            "productmanagement$review"
+        ]
+    ],
+    "productmanagement$author": [
+        [
+            "productmanagement$author_book",
+            "productmanagement$book"
+        ]
+    ],
+    "productmanagement$category": [
+        [
+            "productmanagement$book_category",
+            "productmanagement$book"
+        ]
+    ],
+    "productmanagement$publisher": [
+        [
+            "productmanagement$book_publisher",
+            "productmanagement$book"
+        ]
+    ]
+}
